@@ -14,4 +14,5 @@ This repository contains a group project that utilizes the open source Unsloth l
   ## Technology Stack
   * Language Model: unsloth/Meta-Llama-3.1-8B-bnb-4bit
   * Libraries: NLTK, PyPDF, unsloth, transformers
-  * Frontend: HTML/CSS/JavaScript
+  * Frontend: HTML/CSS/JavaScript/React
+  * Backend: Express.js, Node.js, cors, dotenv, jsonwebtoken, bycrypt, moongose, mongodb, joi
