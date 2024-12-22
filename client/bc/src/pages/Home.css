@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background-image: url('utils/background-wave-white-gradient-design_483537-1128.avif'); 
+    background-size: cover;
+    background-position: center center; 
+    background-attachment: fixed;
+    height: 100vh; 
+  }
+  
+  .title {
+    margin-left: 50px;
+    margin-top: 90px;
+    max-width: 800px;
+  }
+  
+  .title h1 {
+    font-size: 85px;
+    /* color: #2c3e50; */
+    font-weight: bolder;
+    margin-bottom: 20px;
+    /* text-shadow: 2px 2px rgba(46, 204, 113, 0.3); */
+    /* line-height: 1.2; */
+  }
+  
+  .title h1 span {
+    /* color: #1abc9c; */
+    font-weight: 500;
+    /* text-transform: uppercase; */
+  }
+  
+  .title div {
+    font-size: 22px;
+    color: black;
+    line-height: 1.6;
+    font-weight: 400;
+    margin-top: 10px;
+    max-width: 700px;
+    text-align: justify;
+    padding-right: 20px;
+  }
+  .upload-button {
+    padding: 15px 30px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    margin-top: 30px;
+    width: 250px;
+  }
+  
+  .upload-button:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+  }
+  
+  .upload-button:focus {
+    outline: none;
+    border: 2px solid #fff;
+  }
+  
