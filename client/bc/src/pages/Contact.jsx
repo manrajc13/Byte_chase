@@ -5,21 +5,10 @@ import './contact.css'; // Adjust the path according to your project structure
 const ContactUs = () => {
     return (
         <div>
-            <header>
-                <div className="logo">
-                    <h2>bc</h2>
-                </div>
-                <nav>
-                    <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Services</a>
-                </nav>
-                <div>
-                    <button style={{ marginRight: '10px' }}>Sign Up</button>
-                    <button>Sign In</button>
-                </div>
-            </header>
+            
+            <Navbar></Navbar>
+            
+            
 
             <div className="container">
                 <h1>Contact Us</h1>

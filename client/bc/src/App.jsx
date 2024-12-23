@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import "./App.css";
 import React from "react";
 import Signup from "./pages/Signup";
+import Contact from "./pages/Contact";
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
       
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
+      <Route path='/contact' element={<Contact />} />
       </Routes>
       
 
