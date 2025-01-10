@@ -48,9 +48,8 @@ ul {
 .nav-link:hover {
     font-weight: bolder;
     cursor: pointer;
-    text-shadow: 0 0 5px none;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
     transform: translateY(-2px);
-    transition: all 0.3s ease;
 }
 
 .buttoncontainer {
@@ -63,7 +62,7 @@ ul {
     border: 2px solid transparent;
     border-radius: 30px;
     background-color: black;
-    color: white; /* Ensures the text is white */
+    color: white;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -73,8 +72,6 @@ ul {
 }
   
 .buttoncontainer button:hover {
-    background-color: black;
-    color: white; /* Explicitly set text to white on hover */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
@@ -82,27 +79,19 @@ ul {
 .buttoncontainer button:focus {
     outline: none;
     border: 2px solid black;
-    color: white; /* Explicitly set text to white on focus */
 }
 
 .buttoncontainer button:active {
-    background-color: black;
-    color: white; /* Explicitly set text to white on active */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(0);
 }
 
-/* Styling for Link inside button */
-.buttoncontainer button a {
-    color: white; /* Ensures the text inside the link is white */
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-block;
-    width: 100%; /* Ensures full clickability */
-    height: 100%;
-    text-align: center;
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.buttoncontainer button a:hover {
-    color: white; /* Explicitly maintain white on hover */
+main {
+    margin-top: 80px; /* Adds spacing equal to the navbar height */
+    padding: 20px;
 }

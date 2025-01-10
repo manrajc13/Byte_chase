@@ -1,46 +1,40 @@
-// controllers/pdfController.js
+const { createFolder, uploadFile } = require('../services/googleDriveService');
 const Pdf = require('../models/pdf');
 
-exports.uploadPdf = async (req, res) => {
+exports.uploadPdfToDrive = async (req, res) => {
     try {
         if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded or invalid file type' });
+            return res.status(400).json({ error: 'No file uploaded' });
         }
 
+        const userId = req.user.id; // Assumes user ID is stored in the token
+        const userFolderName = `User_${userId}`;
+        let userFolderId = req.user.googleDriveFolderId;
+
+        // If folder doesn't exist, create one and save it
+        if (!userFolderId) {
+            userFolderId = await createFolder(userFolderName);
+            // Save folder ID in user database (not implemented here)
+        }
+
+        // Upload file to Google Drive
+        const fileUrl = await uploadFile(userFolderId, req.file);
+
+        // Save PDF details to MongoDB
         const pdf = new Pdf({
             fileName: req.file.originalname,
-            filePath: req.file.path,
+            filePath: fileUrl,
             fileSize: req.file.size,
         });
 
         const savedPdf = await pdf.save();
-
         res.status(200).json({
-            message: 'PDF uploaded successfully',
+            message: 'File uploaded to Google Drive successfully',
             pdfId: savedPdf._id,
+            fileUrl: fileUrl,
         });
     } catch (error) {
-        console.error('Error uploading PDF:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
-
-exports.getPdfById = async (req, res) => {
-    try {
-        const pdf = await Pdf.findById(req.params.id);
-
-        if (!pdf) {
-            return res.status(404).json({ error: 'PDF not found' });
-        }
-
-        res.status(200).json({
-            fileName: pdf.fileName,
-            filePath: pdf.filePath,
-            fileSize: pdf.fileSize,
-            uploadedAt: pdf.uploadedAt,
-        });
-    } catch (error) {
-        console.error('Error retrieving PDF:', error);
+        console.error('Error uploading to Google Drive:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 };

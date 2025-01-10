@@ -1,27 +1,38 @@
+// server.js
+require('dotenv').config();
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const path = require('path');
 const Authrouter = require('./routes/Authrouter');
 const PdfRouter = require('./routes/pdfRouter');
-require('dotenv').config();
-require('./models/db');
 
+const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.use(helmet());
+app.use(cors());
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+
+// Health check endpoint
 app.get('/ping', (req, res) => {
     res.send('Pong');
 });
 
-app.use(bodyParser.json());
-app.use(cors());
-
+// Use Auth and Pdf routes
 app.use('/auth', Authrouter);
 app.use('/pdf', PdfRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}`);
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
 });
 
-
-
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is listening on http://localhost:${PORT}`);
+});

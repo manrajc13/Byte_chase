@@ -1,13 +1,16 @@
 // import { useState } from 'react'
 // import viteLogo from '/vite.svg'
-import { Routes, Route } from "react-router-dom"; // Import Routes and Route
+import { Routes, Route } from "react-router-dom"; 
 // import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import "./App.css";
 import React from "react";
 import Signup from "./pages/Signup";
-import Contact from "./pages/Contact";
+// import Cheat from "./pages/Cheat";
+import Quiz from "./pages/Quiz";
+import Review from "./pages/Review";
+
 
 function App() {
   
@@ -20,7 +23,10 @@ function App() {
       
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
-      <Route path='/contact' element={<Contact />} />
+      {/* <Route path='/cheat' element={<Cheat />} /> */}
+      <Route path='/quiz' element={<Quiz />} />
+      <Route path='/review' element={<Review />} />
+      
       </Routes>
       
 

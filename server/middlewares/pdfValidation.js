@@ -1,33 +1,24 @@
-// middlewares/pdfValidation.js
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+// pdfValidation.js
+const pdfValidation = (req, res, next) => {
+    const file = req.file;
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadDir = path.join(__dirname, '../uploads');
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir);
-        }
-        cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
-
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'application/pdf') {
-        cb(null, true);
-    } else {
-        cb(new Error('Only PDF files are allowed!'), false);
+    if (!file) {
+        return res.status(400).json({ error: 'No file uploaded' });
     }
+
+    // Check if the uploaded file is a PDF
+    if (file.mimetype !== 'application/pdf') {
+        return res.status(400).json({ error: 'Only PDF files are allowed' });
+    }
+
+    // Check file size (maximum 5MB)
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_FILE_SIZE) {
+        return res.status(400).json({ error: 'File size exceeds the limit of 5MB' });
+    }
+
+    // All validation passed, proceed to the next middleware/controller
+    next();
 };
 
-const upload = multer({
-    storage,
-    fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
-});
-
-module.exports = upload.single('pdf');
+module.exports = pdfValidation;

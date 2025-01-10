@@ -1,16 +1,26 @@
 import axios from 'axios';
 
-export const isAuthenticated = async () => {
-    const token = localStorage.getItem('token'); // Get the token from localStorage
-    if (!token) return false;
+// Base API URL
+const API_BASE_URL = 'http://localhost:8080';
 
-    try {
-        const response = await axios.get('http://localhost:8080/auth/verify-token', {
-            headers: { Authorization: `Bearer ${token}` }, // Add token to Authorization header
-        });
-        return response.status === 200; // Return true if the token is valid
-    } catch (error) {
-        console.error('Token verification failed:', error);
-        return false; // Return false if the token is invalid or expired
-    }
+// Function to check if the user is authenticated based on the token
+export const isAuthenticated = async () => {
+  try {
+      const token = localStorage.getItem('token');
+      if (!token) return false;
+
+      const response = await axios.get(`http://localhost:8080/auth/verify-token`, {
+          headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.status === 200;
+  } catch (error) {
+      console.error('Error verifying token:', error.message || error);
+      return false;
+  }
+};
+
+// Function to sign out the user
+export const signOut = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('loggedInUser');
 };

@@ -1,12 +1,15 @@
-// routes/PdfRouter.js
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
-const { uploadPdf, getPdfById } = require('../controllers/pdfController');
+const { uploadPdfToDrive } = require('../controllers/pdfController');
+const { verifyToken } = require('../middlewares/tokenValidation');
 const pdfValidation = require('../middlewares/pdfValidation');
 
+// Multer setup for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-
-router.post('/upload', pdfValidation, uploadPdf);
-router.get('/:id', getPdfById);
+// Upload PDF to Google Drive
+router.post('/upload', verifyToken, upload.single('pdf'), pdfValidation, uploadPdfToDrive);
 
 module.exports = router;
