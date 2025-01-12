@@ -5,6 +5,7 @@ import "./Home.css";
 import Navbar from '../components/Navbar';
 import axios from 'axios';
 import Cheat from './Cheat';
+import { FaRocket, FaLightbulb, FaClock, FaUpload, FaRobot, FaFileDownload } from 'react-icons/fa';
 
 const Home = () => {
     const [file, setFile] = useState(null);
@@ -132,7 +133,28 @@ const Home = () => {
                 </button>
                 {uploadError && <div className="upload-error">{uploadError}</div>}
             </div>
+            <section className="features">
+          <h2 className="section-title">Why Choose Our Cheat Sheet Generator?</h2>
+          <div className="feature-grid">
+            <div className="feature-card">
+              <FaRocket className="feature-icon" />
+              <h3>Boost Your Productivity</h3>
+              <p>Save hours of manual note-taking and focus on what matters most - understanding the content.</p>
+            </div>
+            <div className="feature-card">
+              <FaLightbulb className="feature-icon" />
+              <h3>Tailored to Your Needs</h3>
+              <p>Our AI-powered system creates personalized cheat sheets that highlight key concepts and definitions.</p>
+            </div>
+            <div className="feature-card">
+              <FaClock className="feature-icon" />
+              <h3>Quick Turnaround</h3>
+              <p>Get your cheat sheet and mock test within minutes, not hours.</p>
+            </div>
+          </div>
+        </section>
         </div>
+        
     );
 };
 

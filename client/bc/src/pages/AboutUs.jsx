@@ -1,29 +1,30 @@
 import React from 'react'
 import { FileText, HelpCircle, Zap, BookOpen } from 'lucide-react';
 import './AboutUs.css';
+import kaavyaimg from '../utils/WhatsApp Image 2025-01-11 at 19.54.02_859e7929.jpg'
 import Navbar from '../components/Navbar';
 const teamMembers = [
     {
-      name: 'Jane Doe',
-      role: 'Founder & CEO',
-      image: '/placeholder.svg?height=200&width=200',
-      description: 'Jane is the visionary behind our platform, with 10+ years of experience in EdTech.',
+      name: 'Kaavya Sidher',
+      role: 'Lead Developer',
+      image: kaavyaimg,
+      description: 'Kaavya is the visionary behind our platform.',
     },
     {
-      name: 'John Smith',
-      role: 'Lead Developer',
+      name: 'Manraj Singh Cheema',
+      role: 'Backend developer',
       image: '/placeholder.svg?height=200&width=200',
       description: 'John is our technical genius, ensuring our platform runs smoothly and efficiently.',
     },
     {
-      name: 'Emily Brown',
+      name: 'Bhuvi',
       role: 'Content Strategist',
       image: '/placeholder.svg?height=200&width=200',
       description: 'Emily curates and creates high-quality content for our cheat sheets and quizzes.',
     },
     {
-      name: 'Michael Lee',
-      role: 'UX Designer',
+      name: 'Siddarth Arora',
+      role: 'Frontend Developer',
       image: '/placeholder.svg?height=200&width=200',
       description: 'Michael is responsible for creating an intuitive and engaging user experience.',
     },
@@ -33,10 +34,10 @@ const AboutUs = () => {
     <>
     <Navbar />
     <div className="about-us-container">
-      <h1>About Us</h1>
+      
       <section className="mission-section">
         <h2>Our Mission</h2>
-        <p>At CheatSheetQuiz, we're dedicated to revolutionizing the way you learn and retain information. Our platform combines the power of customized cheat sheets with interactive quizzes to create an engaging and effective learning experience.</p>
+        <p>At ByteChase, we're dedicated to revolutionizing the way you learn and retain information. Our platform combines the power of customized cheat sheets with interactive quizzes to create an engaging and effective learning experience.</p>
       </section>
       <section className="services-section">
         <h2>Our Services</h2>

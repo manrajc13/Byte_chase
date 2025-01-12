@@ -39,7 +39,18 @@
   .contact-form, .contact-info {
     flex: 1;
   }
-  
+  .infok{
+    font-weight: bolder;
+    margin-bottom: 70px;
+  }
+  .contact-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 200px;
+   
+  }
   .form-group {
     margin-bottom: 1rem;
   }

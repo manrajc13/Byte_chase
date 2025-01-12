@@ -58,26 +58,27 @@ const ContactUs = () => {
           </form>
         </div>
         <div className="contact-info">
-          <h2>Contact Information</h2>
+          <h2 className='infok'>Contact Information</h2>
+          
           <div className="info-item">
             <IconWrapper><MapPin size={24} /></IconWrapper>
             <div>
               <h3>Our Office</h3>
-              <p>123 Web Street, Digital City, 12345</p>
+              <p>PEC, sector 12, chd</p>
             </div>
           </div>
           <div className="info-item">
             <IconWrapper><Phone size={24} /></IconWrapper>
             <div>
               <h3>Phone</h3>
-              <p>+1 (555) 123-4567</p>
+              <p>1234567890</p>
             </div>
           </div>
           <div className="info-item">
             <IconWrapper><Mail size={24} /></IconWrapper>
             <div>
               <h3>Email</h3>
-              <p>contact@cheatsheetquiz.com</p>
+              <p>bytechase@gmail.com</p>
             </div>
           </div>
           <div className="info-item">

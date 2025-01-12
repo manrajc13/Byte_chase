@@ -3,7 +3,12 @@ import { FileText, HelpCircle, Zap, BookOpen, ChevronDown, ChevronUp } from 'luc
 import './Services.css';
 import Navbar from '../components/Navbar';
 
-const IconWrapper = (props) => <div style={{ color: '#000' }}>{props.children}</div>;
+const IconWrapper = ({ children }) => (
+  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '13px' }}>
+    {children}
+  </div>
+);
+
 
 const services = [
   {
@@ -64,7 +69,7 @@ const ServiceCard = ({ service }) => {
         {isExpanded ? (
           <>
             <span>Show Less</span>
-            <IconWrapper><ChevronUp size={18} /></IconWrapper>
+            <IconWrapper className="dropi"><ChevronUp size={20} /></IconWrapper>
           </>
         ) : (
           <>
@@ -85,6 +90,11 @@ const ServiceCard = ({ service }) => {
 };
 
 const Services = () => {
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+  const handleToggle = (index) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
   return (
     <>
     <Navbar/>
@@ -107,17 +117,17 @@ const Services = () => {
           <div className="step">
             <div className="step-number">2</div>
             <h3>Explore</h3>
-            <p>Browse our services and choose the tools that fit your needs.</p>
+            <p>Upload the pdf and start exploring the content.</p>
           </div>
           <div className="step">
             <div className="step-number">3</div>
             <h3>Learn</h3>
-            <p>Engage with our interactive content and track your progress.</p>
+            <p>The cheat sheet will be created, you can download it and also give quiz to check your understanding</p>
           </div>
           <div className="step">
             <div className="step-number">4</div>
             <h3>Achieve</h3>
-            <p>Reach your learning goals and celebrate your success!</p>
+            <p>Review your progress about your understanding and grow.Reach your learning goals and celebrate your success!</p>
           </div>
         </div>
       </section>

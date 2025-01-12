@@ -66,39 +66,59 @@
     margin-bottom: 1rem;
   }
   
+  
   .expand-btn {
     background: none;
     border: none;
     color: #000;
     cursor: pointer;
-    display: flex;
+    display: flex; /* Align icon and text using flexbox */
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    margin: 0 auto;
+    gap: 0.5rem; /* Spacing between text and icon */
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.5rem;
   }
+  .expand-btn:hover{
+    color: white;
+  }
+  .expand-btn svg {
+    width: 18px; /* Ensure a consistent size */
+    height: 18px;
+    vertical-align: middle; /* Align icon with the text */
+  }
+  
   
   .feature-list {
     list-style-type: none;
-    padding: 0;
+    padding: 0; /* Remove default padding */
     margin-top: 1rem;
-    text-align: left;
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    gap: 0.5rem;
+    align-items:flex-start;
+    justify-content:flex-start;
   }
   
   .feature-list li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
     position: relative;
+    padding-left: 1.5rem; /* Add space for the bullet */
+    text-align: start;
   }
   
   .feature-list li::before {
     content: "•";
     position: absolute;
-    left: 0;
-    color: #000;
+    left: 0; /* Align bullet consistently */
+    color: #000; /* Bullet color */
+    font-size: 1.2rem; /* Adjust bullet size if needed */
+    line-height: 1; /* Ensure alignment */
   }
   
+  
   .how-it-works {
+    
     margin-top: 4rem;
   }
   
