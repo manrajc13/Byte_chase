@@ -10,6 +10,9 @@ import Signup from "./pages/Signup";
 // import Cheat from "./pages/Cheat";
 import Quiz from "./pages/Quiz";
 import Review from "./pages/Review";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import Services from "./pages/Services";
 
 
 function App() {
@@ -26,6 +29,9 @@ function App() {
       {/* <Route path='/cheat' element={<Cheat />} /> */}
       <Route path='/quiz' element={<Quiz />} />
       <Route path='/review' element={<Review />} />
+      <Route path='/About' element={<AboutUs />} />
+      <Route path='/contact' element={<ContactUs />} />
+      <Route path='/Services' element={<Services />} />
       
       </Routes>
       

@@ -1,0 +1,146 @@
+import React, { useState } from 'react';
+import { FileText, HelpCircle, Zap, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import './Services.css';
+import Navbar from '../components/Navbar';
+
+const IconWrapper = (props) => <div style={{ color: '#000' }}>{props.children}</div>;
+
+const services = [
+  {
+    icon: <FileText size={48} />,
+    title: "Cheat Sheet Generation",
+    description: "Create customized cheat sheets for quick reference and efficient learning.",
+    features: [
+      "AI-powered content summarization",
+      "Customizable templates",
+      "Export to PDF, PNG, or interactive web format",
+      "Collaborative editing for team study sessions"
+    ]
+  },
+  {
+    icon: <HelpCircle size={48} />,
+    title: "Quiz Taking",
+    description: "Test your knowledge with our interactive quizzes on various subjects.",
+    features: [
+      "Adaptive difficulty based on performance",
+      "Real-time feedback and explanations",
+      "Progress tracking and analytics",
+      "Competitive leaderboards and achievements"
+    ]
+  },
+  {
+    icon: <Zap size={48} />,
+    title: "Personalized Learning",
+    description: "Adaptive learning paths tailored to your individual needs and progress.",
+    features: [
+      "AI-driven study recommendations",
+      "Spaced repetition for optimal retention",
+      "Cross-subject connection mapping",
+      "Learning style assessment and adaptation"
+    ]
+  },
+  {
+    icon: <BookOpen size={48} />,
+    title: "Study Resources",
+    description: "Access a wide range of study materials to supplement your learning journey.",
+    features: [
+      "Curated video tutorials and lectures",
+      "Interactive simulations and experiments",
+      "Peer-reviewed article database",
+      "Expert Q&A forums"
+    ]
+  }
+];
+
+const ServiceCard = ({ service }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className={`service-card ${isExpanded ? 'expanded' : ''}`}>
+      <IconWrapper>{service.icon}</IconWrapper>
+      <h2>{service.title}</h2>
+      <p>{service.description}</p>
+      <button className="expand-btn" onClick={() => setIsExpanded(!isExpanded)}>
+        {isExpanded ? (
+          <>
+            <span>Show Less</span>
+            <IconWrapper><ChevronUp size={18} /></IconWrapper>
+          </>
+        ) : (
+          <>
+            <span>Learn More</span>
+            <IconWrapper><ChevronDown size={18} /></IconWrapper>
+          </>
+        )}
+      </button>
+      {isExpanded && (
+        <ul className="feature-list">
+          {service.features.map((feature, index) => (
+            <li key={index}>{feature}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const Services = () => {
+  return (
+    <>
+    <Navbar/>
+    <div className="services-container">
+      <h1>Our Services</h1>
+      <p className="subtitle">Empowering your learning journey with cutting-edge tools and resources</p>
+      <div className="services-grid">
+        {services.map((service, index) => (
+          <ServiceCard key={index} service={service} />
+        ))}
+      </div>
+      <section className="how-it-works">
+        <h2>How It Works</h2>
+        <div className="steps">
+          <div className="step">
+            <div className="step-number">1</div>
+            <h3>Sign Up</h3>
+            <p>Create your account and set your learning goals.</p>
+          </div>
+          <div className="step">
+            <div className="step-number">2</div>
+            <h3>Explore</h3>
+            <p>Browse our services and choose the tools that fit your needs.</p>
+          </div>
+          <div className="step">
+            <div className="step-number">3</div>
+            <h3>Learn</h3>
+            <p>Engage with our interactive content and track your progress.</p>
+          </div>
+          <div className="step">
+            <div className="step-number">4</div>
+            <h3>Achieve</h3>
+            <p>Reach your learning goals and celebrate your success!</p>
+          </div>
+        </div>
+      </section>
+      <section className="testimonials">
+        <h2>What Our Users Say</h2>
+        <div className="testimonial-grid">
+          <div className="testimonial">
+            <p>"CheatSheetQuiz has revolutionized the way I study. The personalized learning paths have helped me improve my grades significantly!"</p>
+            <cite>- Sarah K., College Student</cite>
+          </div>
+          <div className="testimonial">
+            <p>"As a teacher, I find the quiz creation tools invaluable. It's so easy to assess my students' progress and identify areas where they need more support."</p>
+            <cite>- Mark R., High School Teacher</cite>
+          </div>
+          <div className="testimonial">
+            <p>"The collaborative features have made group study sessions so much more productive. We can create and share cheat sheets in real-time!"</p>
+            <cite>- Emily L., Graduate Student</cite>
+          </div>
+        </div>
+      </section>
+    </div>
+    </>
+  );
+};
+
+export default Services;

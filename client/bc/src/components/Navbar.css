@@ -12,7 +12,7 @@ nav {
     background-color: transparent;
     color: black;
     padding: 0 30px;
-    position: sticky;
+    position:relative;
     top: 0;
     z-index: 10;
 }
