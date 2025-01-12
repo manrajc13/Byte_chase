@@ -11,7 +11,10 @@ const Quiz = () => {
 
     const [questionsState, setQuestionsState] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [timer, setTimer] = useState(initialTime);
+    const [timer, setTimer] = useState(() => {
+        const storedTime = localStorage.getItem('quiz-timer');
+        return storedTime ? parseInt(storedTime, 10) : initialTime;
+    });
     const [userAnswers, setUserAnswers] = useState([]);
     const [correctAnswers, setCorrectAnswers] = useState(0);
 
@@ -51,37 +54,51 @@ const Quiz = () => {
             return;
         }
 
+        localStorage.setItem('quiz-timer', timer.toString());
+
         const interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
         return () => clearInterval(interval);
     }, [timer]);
 
-    
-    const handleAnswerChange = (index, option) => {
+    const handleAnswerChange = (index, optionKey) => {
         const updatedAnswers = [...userAnswers];
         updatedAnswers[index] = {
-            answer: option,
-            isCorrect: option === formattedQuestions[index].correctAnswer,
+            answer: optionKey,
+            answerText: formattedQuestions[index].options[optionKey], // Store answer text
+            isCorrect: optionKey === formattedQuestions[index].correctAnswer,
         };
         setUserAnswers(updatedAnswers);
-
-        
+    
         setCorrectAnswers(updatedAnswers.filter((a) => a.isCorrect).length);
     };
-
+    
     const handleSubmit = () => {
         const quizData = formattedQuestions.map((q, index) => ({
-            ...q,
+            question: q.question,
+            options: q.options,
+            correctAnswer: q.correctAnswer,
+            correctAnswerText: q.options[q.correctAnswer], // Store correct answer text
             answer: userAnswers[index]?.answer || '',
+            answerText: userAnswers[index]?.answerText || "Not Answered", // Store selected answer text
         }));
-
-        // Save data to localStorage
+    
         localStorage.setItem('quiz-questions', JSON.stringify(quizData));
-
-        // Navigate to review page
+        localStorage.removeItem('quiz-timer');
+    
         navigate('/review');
     };
+    const handleNextQuestion = () => {
+        if (currentQuestion < formattedQuestions.length - 1) {
+            setCurrentQuestion((prev) => prev + 1);
+        }
+    };
 
-    // Format time for the timer display
+    const handlePrevQuestion = () => {
+        if (currentQuestion > 0) {
+            setCurrentQuestion((prev) => prev - 1);
+        }
+    };
+
     const formatTime = (time) => {
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
@@ -135,6 +152,20 @@ const Quiz = () => {
                                 {index + 1}
                             </button>
                         ))}
+                    </div>
+                    <div className="quiz-nav-buttons">
+                        <button
+                            onClick={handlePrevQuestion}
+                            disabled={currentQuestion === 0}
+                        >
+                            Previous
+                        </button>
+                        <button
+                            onClick={handleNextQuestion}
+                            disabled={currentQuestion === formattedQuestions.length - 1}
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             </div>

@@ -14,16 +14,8 @@ const Review = () => {
     const totalQuestions = questions.length;
     const correctPercentage = (totalMarks / totalQuestions) * 100;
 
-    // Circle chart configuration
-    const radius = 90;
-    const circumference = 2 * Math.PI * radius; // Circumference of the circle
-    const strokeDasharray = `${(correctPercentage / 100) * circumference} ${circumference}`; // Stroke length based on percentage
-    const strokeDashoffset = circumference - (correctPercentage / 100) * circumference; // Offset to start the stroke from the top
-
     const handleGoHome = () => {
-        // Clear answers from localStorage when navigating to home
         localStorage.removeItem('quiz-questions');
-        // Navigate to home
         navigate('/');
     };
 
@@ -32,32 +24,19 @@ const Review = () => {
             <h1>Quiz Review</h1>
             <h2>Total Marks: {totalMarks} / {totalQuestions}</h2>
 
-            {/* Circle chart */}
             <div className="circle-chart-container">
                 <svg className="circle-chart" width="200" height="200" viewBox="0 0 200 200">
-                    {/* Background circle */}
+                    <circle cx="100" cy="100" r="90" stroke="#ddd" strokeWidth="20" fill="none" />
                     <circle
-                        className="circle-background"
                         cx="100"
                         cy="100"
-                        r={radius}
-                        stroke="#ddd"
+                        r="90"
+                        stroke="#4CAF50"
                         strokeWidth="20"
                         fill="none"
+                        strokeDasharray={`${(correctPercentage / 100) * (2 * Math.PI * 90)} ${2 * Math.PI * 90}`}
+                        strokeDashoffset={(1 - correctPercentage / 100) * (2 * Math.PI * 90)}
                     />
-                    {/* Progress circle */}
-                    <circle
-                        className="circle-progress"
-                        cx="100"
-                        cy="100"
-                        r={radius}
-                        stroke="#4CAF50" // Correct answers color
-                        strokeWidth="20"
-                        fill="none"
-                        strokeDasharray={strokeDasharray}
-                        strokeDashoffset={strokeDashoffset}
-                    />
-                    {/* Text to show percentage */}
                     <text x="50%" y="50%" textAnchor="middle" dy="7px" fontSize="24" fill="#333">
                         {Math.round(correctPercentage)}%
                     </text>
@@ -69,12 +48,12 @@ const Review = () => {
                     <div key={index} className="review-question">
                         <h3>Question {index + 1}: {question.question}</h3>
                         <p>
-                            <strong>Your Answer:</strong>
+                            <strong>Your Answer:</strong> 
                             <span className={question.answer === question.correctAnswer ? 'correct' : 'wrong'}>
-                                {question.answer || "Not Answered"}
+                                {question.answerText || "Not Answered"}
                             </span>
                         </p>
-                        <p><strong>Correct Answer:</strong> {question.correctAnswer}</p>
+                        <p><strong>Correct Answer:</strong> {question.correctAnswerText}</p>
                     </div>
                 ))}
             </div>
@@ -85,4 +64,3 @@ const Review = () => {
 };
 
 export default Review;
-

@@ -14,15 +14,7 @@ const Home = () => {
     const navigate = useNavigate();
     const [response, setResponse] = useState("");
     const [questions, setQuestions] = useState("");
-
-    // useEffect(() => {
-    //     const checkAuthStatus = async () => {
-    //         const authStatus = await isAuthenticated();
-    //         setLoggedIn(authStatus);
-    //         if (!authStatus) navigate("/login");
-    //     };
-    //     checkAuthStatus();
-    // }, [navigate]);
+    const [loading, setLoading] = useState(false); // State for loader
 
     const handleFileUpload = async (event) => {
         const selectedFile = event.target.files[0];
@@ -42,6 +34,7 @@ const Home = () => {
         try {
             setUploading(true);
             setUploadError(null);
+            setLoading(true); // Start the loader
 
             const formData = new FormData();
             formData.append("pdf", selectedFile);
@@ -53,20 +46,19 @@ const Home = () => {
             alert(`File uploaded successfully! View it here: ${data.fileUrl}`);
 
             const backendResponse = await axios.post(
-                'https://4a23-35-185-21-162.ngrok-free.app/',
+                'https://0169-34-83-116-169.ngrok-free.app/',
                 { fileurl: data.fileUrl }
             );
 
             console.log("Backend response:", backendResponse);
-            // const cheatSheetAsString = JSON.stringify(backendResponse.data.cheat_sheet);
 
-            setResponse(backendResponse.data.cheat_sheet); 
+            setResponse(backendResponse.data.cheat_sheet);
             setQuestions(backendResponse.data.questions);
-            
         } catch (error) {
             setUploadError(error.response?.data?.error || "Failed to upload file. Please try again.");
         } finally {
             setUploading(false);
+            setLoading(false); // Stop the loader
         }
     };
 
@@ -75,11 +67,29 @@ const Home = () => {
         setLoggedIn(false);
         navigate("/login");
     };
-    if (response.length !== 0) {
+
+    if (loading) {
         return (
-            <Cheat response={response} questions={questions} />
-        )
+            <div class="main">
+        <div class="loader-container">
+            <div class="flame-loader">
+                <div class="flame"></div>
+                <div class="flame"></div>
+                <div class="flame"></div>
+                <div class="flame"></div>
+                <div class="flame"></div>
+            </div>
+            <p class="loader-text">Processing your request, please wait...</p>
+        </div>
+    </div>
+
+        );
     }
+
+    if (response.length !== 0) {
+        return <Cheat response={response} questions={questions} />;
+    }
+
     return (
         <div>
             <Navbar>
@@ -96,11 +106,15 @@ const Home = () => {
                 </div>
             </Navbar>
             <div className="title">
-                <h1 className='l'>Cheat <span>Sheet</span></h1>
-                <p className='o'>
+                <h1 className="l">
+                    Cheat <span>Sheet</span>
+                </h1>
+                <p className="o">
                     Your Ultimate Study Companion for College Success
-
-                    Simply upload a chapter PDF, and we’ll generate a detailed cheat sheet tailored to your needs. Along with that, you’ll receive a personalized mock test to help you excel in your upcoming college quizzes.
+                    <br />
+                    Simply upload a chapter PDF, and we’ll generate a detailed cheat sheet tailored to your needs.
+                    Along with that, you’ll receive a personalized mock test to help you excel in your upcoming college
+                    quizzes.
                 </p>
                 <input
                     type="file"

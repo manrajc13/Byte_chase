@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'; // Choose a style you like
 import './Cheat.css';
 import Navbar from '../components/Navbar';
 
 const Cheat = ({ response, questions }) => {
-    const [cheatSheet, setCheatSheet] = useState(''); // State to store cheat sheet text
-    const navigate = useNavigate(); // Initialize navigate function
+    const [cheatSheet, setCheatSheet] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (response) {
@@ -14,7 +16,6 @@ const Cheat = ({ response, questions }) => {
     }, [response]);
 
     const handleDownload = () => {
-        alert('Downloading cheat sheet...');
         const blob = new Blob([cheatSheet], { type: 'text/plain' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -23,7 +24,7 @@ const Cheat = ({ response, questions }) => {
     };
 
     const handleTakeQuiz = () => {
-        navigate('/quiz', { state: { questions } }); // Navigate to /quiz and pass questions as state
+        navigate('/quiz', { state: { questions } });
     };
 
     return (
@@ -32,7 +33,13 @@ const Cheat = ({ response, questions }) => {
             <div className="cheat-container">
                 <h1 className='k'>Cheat Sheet</h1>
                 <div className="cheat-textbox">
-                    {cheatSheet || 'Loading cheat sheet...'} {/* Display the cheat sheet or loading message */}
+                    {cheatSheet ? (
+                        <SyntaxHighlighter language="plaintext" style={dracula}>
+                            {cheatSheet}
+                        </SyntaxHighlighter>
+                    ) : (
+                        'Loading cheat sheet...'
+                    )}
                 </div>
                 <div className="cheat-buttons">
                     <button className="cheat-button" onClick={handleDownload}>
@@ -48,4 +55,3 @@ const Cheat = ({ response, questions }) => {
 };
 
 export default Cheat;
-
