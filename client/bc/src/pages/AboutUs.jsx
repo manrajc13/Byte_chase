@@ -2,6 +2,9 @@ import React from 'react'
 import { FileText, HelpCircle, Zap, BookOpen } from 'lucide-react';
 import './AboutUs.css';
 import kaavyaimg from '../utils/WhatsApp Image 2025-01-11 at 19.54.02_859e7929.jpg'
+import bhuviimg from '../utils/WhatsApp Image 2025-01-12 at 23.37.36_8e68fca7.jpg'
+import manrajimg from '../utils/WhatsApp Image 2025-01-12 at 23.41.43_355d006b.jpg'
+import sidimg from '../utils/WhatsApp Image 2025-01-12 at 23.41.43_e4da956f.jpg'
 import Navbar from '../components/Navbar';
 const teamMembers = [
     {
@@ -13,19 +16,19 @@ const teamMembers = [
     {
       name: 'Manraj Singh Cheema',
       role: 'Backend developer',
-      image: '/placeholder.svg?height=200&width=200',
+      image: manrajimg,
       description: 'John is our technical genius, ensuring our platform runs smoothly and efficiently.',
     },
     {
       name: 'Bhuvi',
-      role: 'Content Strategist',
-      image: '/placeholder.svg?height=200&width=200',
+      role: 'Backend Developer',
+      image: bhuviimg,
       description: 'Emily curates and creates high-quality content for our cheat sheets and quizzes.',
     },
     {
       name: 'Siddarth Arora',
       role: 'Frontend Developer',
-      image: '/placeholder.svg?height=200&width=200',
+      image: sidimg,
       description: 'Michael is responsible for creating an intuitive and engaging user experience.',
     },
   ];
