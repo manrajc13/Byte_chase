@@ -122,7 +122,7 @@ const Services = () => {
           <div className="step">
             <div className="step-number">3</div>
             <h3>Learn</h3>
-            <p>The cheat sheet will be created, you can download it and also give quiz to check your understanding</p>
+            <p>The cheat sheet will be created, you can download it and give quizes to test your understanding</p>
           </div>
           <div className="step">
             <div className="step-number">4</div>
