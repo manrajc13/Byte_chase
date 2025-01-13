@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import "./Quiz.css";
+import logo from "../utils/bc.png";
 
 const Quiz = () => {
     const navigate = useNavigate();
@@ -68,10 +69,10 @@ const Quiz = () => {
             isCorrect: optionKey === formattedQuestions[index].correctAnswer,
         };
         setUserAnswers(updatedAnswers);
-    
+
         setCorrectAnswers(updatedAnswers.filter((a) => a.isCorrect).length);
     };
-    
+
     const handleSubmit = () => {
         const quizData = formattedQuestions.map((q, index) => ({
             question: q.question,
@@ -81,10 +82,10 @@ const Quiz = () => {
             answer: userAnswers[index]?.answer || '',
             answerText: userAnswers[index]?.answerText || "Not Answered", // Store selected answer text
         }));
-    
+
         localStorage.setItem('quiz-questions', JSON.stringify(quizData));
         localStorage.removeItem('quiz-timer');
-    
+
         navigate('/review');
     };
     const handleNextQuestion = () => {
@@ -113,9 +114,18 @@ const Quiz = () => {
 
     return (
         <div className="quiz-container">
-            <div className="quiz-timer" aria-live="polite">
-                <h3>Time Remaining: {formatTime(timer)}</h3>
+            <div className="quiztop">
+                <div className="logo1">
+                    <Link to="/">
+                        <img src={logo} alt="Logo" />
+                    </Link>
+                </div>
+                <div className="quiz-timer" aria-live="polite">
+                    <h3 className="timers">Time Remaining: {formatTime(timer)}</h3>
+                </div>
             </div>
+
+
             <div className="quiz-content">
                 <div className="quiz-question">
                     {formattedQuestions.length > 0 ? (

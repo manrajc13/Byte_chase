@@ -1,57 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'; // Choose a style you like
-import './Cheat.css';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm'; // For GitHub-flavored Markdown (tables, task lists, etc.)
+import { Download, BookOpen } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import './Cheat.css';
 
-const Cheat = ({ response, questions }) => {
-    const [cheatSheet, setCheatSheet] = useState('');
-    const navigate = useNavigate();
+const CheatSheet = ({ response, questions }) => {
+  const [cheatSheet, setCheatSheet] = useState('');
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (response) {
-            setCheatSheet(response);
-        }
-    }, [response]);
+  useEffect(() => {
+    if (response) {
+      setCheatSheet(response);
+    }
+  }, [response]);
 
-    const handleDownload = () => {
-        const blob = new Blob([cheatSheet], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'cheat_sheet.txt';
-        link.click();
-    };
+  const handleDownload = () => {
+    const blob = new Blob([cheatSheet], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'cheat_sheet.txt';
+    link.click();
+  };
 
-    const handleTakeQuiz = () => {
-        navigate('/quiz', { state: { questions } });
-    };
+  const handleTakeQuiz = () => {
+    navigate('/quiz', { state: { questions } });
+  };
 
-    return (
-        <>
-            <Navbar />
-            <div className="cheat-container">
-                <h1 className='k'>Cheat Sheet</h1>
-                <div className="cheat-textbox">
-                    {cheatSheet ? (
-                        <SyntaxHighlighter language="plaintext" style={dracula}>
-                            {cheatSheet}
-                        </SyntaxHighlighter>
-                    ) : (
-                        'Loading cheat sheet...'
-                    )}
-                </div>
-                <div className="cheat-buttons">
-                    <button className="cheat-button" onClick={handleDownload}>
-                        Download Cheat Sheet
-                    </button>
-                    <button className="cheat-button" onClick={handleTakeQuiz}>
-                        Take Quiz
-                    </button>
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <div className="cheat-sheet">
+      <Navbar />
+      <main className="cheat-sheet__main">
+        <h1 className="cheat-sheet__title">Cheat Sheet</h1>
+        <div className="cheat-sheet__content">
+          {cheatSheet ? (
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]} 
+              className="markdown-content"
+            >
+              {cheatSheet}
+            </ReactMarkdown>
+          ) : (
+            <p className="cheat-sheet__loading">Loading cheat sheet...</p>
+          )}
+        </div>
+        <div className="cheat-sheet__actions">
+          <button onClick={handleDownload} className="cheat-sheet__button cheat-sheet__button--primary">
+            <Download className="cheat-sheet__button-icon" /> Download Cheat Sheet
+          </button>
+          <button onClick={handleTakeQuiz} className="cheat-sheet__button cheat-sheet__button--primary">
+            <BookOpen className="cheat-sheet__button-icon" /> Take Quiz
+          </button>
+        </div>
+      </main>
+    </div>
+  );
 };
 
-export default Cheat;
+export default CheatSheet;

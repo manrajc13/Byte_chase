@@ -13,17 +13,40 @@
 
 /* Timer */
 .quiz-timer {
+    /* margin: auto; */
     position: fixed;
     top: 20px;
-    right: 20px;
+    right: 30px;
     font-size: 20px;
     background: #333333; /* Dark gray background */
     color: #ffffff; /* White text */
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
+    /* font-weight: bold; */
 }
+.quiztop {
+    margin-right: 1500px;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.logo1 img {
+    margin-right: 1400px;
+    position: fixed;
+    border-radius: 50%;
+    width: 60px; 
+    height: 60px;
+    text-align: left;
+    
+}
+
+.quiz-timer h3 {
+    font-size: 22px;
+    margin: auto; 
+    text-align: right; /* Ensure text is aligned to the right */
+}
+
 
 /* Quiz Content Section */
 .quiz-content {
@@ -129,6 +152,7 @@
     max-height: 400px; /* Set a height limit */
     overflow: hidden; /* Hide the scrollbar */
     padding-right: 10px; /* Add some space for layout consistency */
+    font-weight:400;
 }
 
 /* Question Navigation Section */

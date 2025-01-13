@@ -1,64 +1,116 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from "framer-motion";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { FiHome, FiCheck, FiX } from 'react-icons/fi';
 import "./Review.css";
 
 const Review = () => {
     const navigate = useNavigate();
+    const [questions, setQuestions] = useState([]);
+    const [totalMarks, setTotalMarks] = useState(0);
+    const [totalQuestions, setTotalQuestions] = useState(0);
+    const [correctPercentage, setCorrectPercentage] = useState(0);
+    const [activeQuestion, setActiveQuestion] = useState(0);
 
-    // Retrieve questions from localStorage
-    const savedQuestions = localStorage.getItem('quiz-questions');
-    const questions = savedQuestions ? JSON.parse(savedQuestions) : [];
-
-    // Calculate total correct answers
-    const totalMarks = questions.filter(q => q.answer === q.correctAnswer).length;
-    const totalQuestions = questions.length;
-    const correctPercentage = (totalMarks / totalQuestions) * 100;
+    useEffect(() => {
+        const savedQuestions = localStorage.getItem('quiz-questions');
+        if (savedQuestions) {
+            const parsedQuestions = JSON.parse(savedQuestions);
+            setQuestions(parsedQuestions);
+            setTotalQuestions(parsedQuestions.length);
+            const correct = parsedQuestions.filter(q => q.answer === q.correctAnswer).length;
+            setTotalMarks(correct);
+            setCorrectPercentage((correct / parsedQuestions.length) * 100);
+        }
+    }, []);
 
     const handleGoHome = () => {
         localStorage.removeItem('quiz-questions');
         navigate('/');
     };
 
+    const nextQuestion = () => {
+        setActiveQuestion((prev) => (prev + 1) % totalQuestions);
+    };
+
+    const prevQuestion = () => {
+        setActiveQuestion((prev) => (prev - 1 + totalQuestions) % totalQuestions);
+    };
+
     return (
         <div className="review-container">
-            <h1>Quiz Review</h1>
-            <h2>Total Marks: {totalMarks} / {totalQuestions}</h2>
-
-            <div className="circle-chart-container">
-                <svg className="circle-chart" width="200" height="200" viewBox="0 0 200 200">
-                    <circle cx="100" cy="100" r="90" stroke="#ddd" strokeWidth="20" fill="none" />
-                    <circle
-                        cx="100"
-                        cy="100"
-                        r="90"
-                        stroke="#4CAF50"
-                        strokeWidth="20"
-                        fill="none"
-                        strokeDasharray={`${(correctPercentage / 100) * (2 * Math.PI * 90)} ${2 * Math.PI * 90}`}
-                        strokeDashoffset={(1 - correctPercentage / 100) * (2 * Math.PI * 90)}
-                    />
-                    <text x="50%" y="50%" textAnchor="middle" dy="7px" fontSize="24" fill="#333">
-                        {Math.round(correctPercentage)}%
-                    </text>
-                </svg>
-            </div>
-
-            <div className="review-questions">
-                {questions.map((question, index) => (
-                    <div key={index} className="review-question">
-                        <h3>Question {index + 1}: {question.question}</h3>
-                        <p>
-                            <strong>Your Answer:</strong> 
-                            <span className={question.answer === question.correctAnswer ? 'correct' : 'wrong'}>
-                                {question.answerText || "Not Answered"}
-                            </span>
-                        </p>
-                        <p><strong>Correct Answer:</strong> {question.correctAnswerText}</p>
+            <motion.div
+                className="review-card"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                <h1>Quiz Review</h1>
+                <div className="score-container">
+                <div className="circular-progress">
+                        <CircularProgressbar
+                            value={correctPercentage}
+                            text={`${Math.round(correctPercentage)}%`}
+                            styles={buildStyles({
+                                textColor: "#000",
+                                pathColor: "#000",
+                                trailColor: "#d6d6d6"
+                            })}
+                        />
                     </div>
-                ))}
-            </div>
-
-            <button className="review-button" onClick={handleGoHome}>Go to Home</button>
+                    <div className="score-details">
+                        <p className="total-score">{totalMarks} / {totalQuestions}</p>
+                        <p className="score-label">Correct Answers</p>
+                    </div>
+                </div>
+                <div className="questions-navigation">
+                    <button onClick={prevQuestion} className="nav-button">&lt;</button>
+                    <span>{activeQuestion + 1} / {totalQuestions}</span>
+                    <button onClick={nextQuestion} className="nav-button">&gt;</button>
+                </div>
+                <AnimatePresence mode='wait'>
+                    <motion.div
+                        key={activeQuestion}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        transition={{ duration: 0.3 }}
+                        className="question-card"
+                    >
+                        {questions[activeQuestion] && (
+                            <>
+                                <h3>Question {activeQuestion + 1}</h3>
+                                <p className="question-text">{questions[activeQuestion].question}</p>
+                                <div className="answer-container">
+                                    <div className="answer-box">
+                                        <p className="answer-label">Your Answer:</p>
+                                        <p className={`answer ${questions[activeQuestion].answer === questions[activeQuestion].correctAnswer ? 'correct' : 'wrong'}`}>
+                                            {questions[activeQuestion].answerText || "Not Answered"}
+                                            {questions[activeQuestion].answer === questions[activeQuestion].correctAnswer ? 
+                                                <FiCheck className="answer-icon" /> : 
+                                                <FiX className="answer-icon" />
+                                            }
+                                        </p>
+                                    </div>
+                                    <div className="answer-box">
+                                        <p className="answer-label">Correct Answer:</p>
+                                        <p className="answer correct">
+                                            {questions[activeQuestion].correctAnswerText}
+                                            <FiCheck className="answer-icon" />
+                                        </p>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+                <button className="review-button" onClick={handleGoHome}>
+                    <FiHome className="button-icon" />
+                    Go to Home
+                </button>
+            </motion.div>
         </div>
     );
 };

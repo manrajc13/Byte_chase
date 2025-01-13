@@ -1,158 +1,213 @@
-/* Overall page styling */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 body {
-    background-color: #f4f4f4;
-    color: #333;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    min-height: 100vh;
+    /* display: flex; */
+    
+    /* width: 100vb; */
 }
 
-/* Container for the review section */
 .review-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.review-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
     text-align: center;
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 80vh; /* Limits height of container to 80% of the viewport */
+    margin-bottom: 2rem;
+    color: #000000;
 }
 
-/* Title styling */
-.review-container h1 {
-    font-size: 2.8em;
-    color: #333;
-    margin-bottom: 15px;
+.score-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
-/* Subtitle for the review container */
-.review-container h2 {
-    font-size: 2.2em;
-    color: #4CAF50;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    font-weight: 600;
+.circular-progress {
+    width: 150px;
+    height: 150px;
 }
 
-/* Circle chart container */
-.circle-chart-container {
-    margin: 40px 0;
+.score-details {
+    text-align: center;
 }
 
-/* Circle chart background and progress */
-.circle-chart .circle-background {
-    fill: none;
-    stroke: #ddd;
-}
-
-.circle-chart .circle-progress {
-    transition: stroke-dasharray 1s ease;
-    transform: rotate(-90deg); /* Rotate to start from the top */
-    transform-origin: 50% 50%;
-}
-
-.circle-chart text {
+.total-score {
+    font-size: 2.5rem;
     font-weight: bold;
-    font-size: 24px;
-    fill: #333;
+    margin: 0;
+    color: #000000;
 }
 
-/* Styling for the questions section */
-.review-questions {
-    text-align: left;
-    margin-bottom: 30px;
+.score-label {
+    font-size: 1rem;
+    color: #666666;
 }
 
-/* Styling for individual review questions */
-.review-question {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    background-color: #fafafa;
-    border-radius: 5px;
+.questions-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-/* Styling for question headers */
-.review-question h3 {
-    font-size: 1.6em;
-    color: #222;
-    font-weight: 600;
-    margin-bottom: 10px;
+.nav-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Styling for the answer text */
-.review-question p {
-    margin: 8px 0;
-    font-size: 1.2em;
-    line-height: 1.5;
+.nav-button:hover {
+    background-color: #000000;
+    color: #ffffff;
 }
 
-/* Styling for correct answers */
-.correct {
-    color: #4CAF50;
-    font-weight: bold;
-    font-size: 1.2em;
+.questions-navigation span {
+    margin: 0 1rem;
+    font-size: 1rem;
 }
 
-/* Styling for wrong answers */
-.wrong {
+.question-card {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #e0e0e0;
+}
+
+.question-card h3 {
+    font-size: 1.2rem;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+.question-text {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #333333;
+}
+
+.answer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.answer-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+}
+
+.answer-label {
+    font-size: 0.9rem;
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.answer {
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.answer.correct {
+    color: #4caf50;
+}
+
+.answer.wrong {
     color: #f44336;
-    font-weight: bold;
-    font-size: 1.2em;
 }
 
-/* Button styling */
+.answer-icon {
+    font-size: 1.2rem;
+}
+
 .review-button {
-    width: 200px;
-    margin-top: 30px;
-    padding: 12px 25px;
-    font-size: 1.2em;
-    color: #fff;
-    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background-color: #000000;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Button hover effect */
 .review-button:hover {
-    background-color: grey;
-    transform: scale(1.05);
+    background-color: #333333;
+    transform: translateY(-2px);
 }
 
-/* Scrollbar styling */
-.review-container::-webkit-scrollbar {
-    width: 10px;
+.button-icon {
+    margin-right: 0.5rem;
 }
 
-.review-container::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-}
-
-.review-container::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
     .review-container {
-        padding: 30px;
+        padding: 1rem;
     }
 
-    .review-container h1 {
-        font-size: 2.2em;
+    .review-card {
+        padding: 1.5rem;
     }
 
-    .review-container h2 {
-        font-size: 1.8em;
+    h1 {
+        font-size: 2rem;
     }
 
-    .review-question h3 {
-        font-size: 1.4em;
+    .circular-progress {
+        width: 120px;
+        height: 120px;
+    }
+
+    .total-score {
+        font-size: 2rem;
+    }
+
+    .question-card {
+        padding: 1rem;
     }
 }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.review-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
