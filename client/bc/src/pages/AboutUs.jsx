@@ -3,8 +3,8 @@ import { FileText, HelpCircle, Zap, BookOpen } from 'lucide-react';
 import './AboutUs.css';
 import kaavyaimg from '../utils/WhatsApp Image 2025-01-11 at 19.54.02_859e7929.jpg'
 import bhuviimg from '../utils/WhatsApp Image 2025-01-12 at 23.37.36_8e68fca7.jpg'
-import manrajimg from '../utils/WhatsApp Image 2025-01-12 at 23.41.43_355d006b.jpg'
-import sidimg from '../utils/WhatsApp Image 2025-01-12 at 23.41.43_e4da956f.jpg'
+import manrajimg from '../utils/WhatsApp Image 2025-01-14 at 16.35.11_9e4a1033.jpg'
+import sidimg from '../utils/WhatsApp Image 2025-01-14 at 16.38.52_3d7039b1.jpg'
 import Navbar from '../components/Navbar';
 const teamMembers = [
     {

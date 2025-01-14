@@ -15,7 +15,7 @@ const Home = () => {
     const navigate = useNavigate();
     const [response, setResponse] = useState("");
     const [questions, setQuestions] = useState("");
-    const [loading, setLoading] = useState(false); // State for loader
+    const [loading, setLoading] = useState(false);
 
     const handleFileUpload = async (event) => {
         const selectedFile = event.target.files[0];
@@ -35,7 +35,7 @@ const Home = () => {
         try {
             setUploading(true);
             setUploadError(null);
-            setLoading(true); // Start the loader
+            setLoading(true);
 
             const formData = new FormData();
             formData.append("pdf", selectedFile);
@@ -47,7 +47,7 @@ const Home = () => {
             alert(`File uploaded successfully! View it here: ${data.fileUrl}`);
 
             const backendResponse = await axios.post(
-                'https://3b9b-34-58-14-92.ngrok-free.app/',
+                'https://7002-34-143-139-10.ngrok-free.app/',
                 { fileurl: data.fileUrl }
             );
 
@@ -59,7 +59,7 @@ const Home = () => {
             setUploadError(error.response?.data?.error || "Failed to upload file. Please try again.");
         } finally {
             setUploading(false);
-            setLoading(false); // Stop the loader
+            setLoading(false);
         }
     };
 
@@ -69,92 +69,89 @@ const Home = () => {
         navigate("/login");
     };
 
-    if (loading) {
-        return (
-            <div class="main">
-        <div class="loader-container">
-            <div class="flame-loader">
-                <div class="flame"></div>
-                <div class="flame"></div>
-                <div class="flame"></div>
-                <div class="flame"></div>
-                <div class="flame"></div>
-            </div>
-            <p class="loader-text">Processing your request, please wait...</p>
-        </div>
-    </div>
-
-        );
-    }
-
     if (response.length !== 0) {
         return <Cheat response={response} questions={questions} />;
     }
 
     return (
-        <div>
-            <Navbar>
-                <div className="auth-buttons">
-                    {loggedIn ? (
-                        <button onClick={handleSignOut} className="auth-button">
-                            Sign Out
-                        </button>
-                    ) : (
-                        <button onClick={() => navigate("/login")} className="auth-button">
-                            Sign In
-                        </button>
-                    )}
+        <div className={`home-container ${loading ? 'loading' : ''}`}>
+            <div className={`content ${loading ? 'blurred' : ''}`}>
+                <Navbar>
+                    <div className="auth-buttons">
+                        {loggedIn ? (
+                            <button onClick={handleSignOut} className="auth-button">
+                                Sign Out
+                            </button>
+                        ) : (
+                            <button onClick={() => navigate("/login")} className="auth-button">
+                                Sign In
+                            </button>
+                        )}
+                    </div>
+                </Navbar>
+                <div className="title">
+                    <h1 className="l">
+                        Cheat <span>Sheet</span>
+                    </h1>
+                    <p className="o">
+                        Your Ultimate Study Companion for College Success
+                        <br />
+                        Simply upload a chapter PDF, and we'll generate a detailed cheat sheet tailored to your needs.
+                        Along with that, you'll receive a personalized mock test to help you excel in your upcoming college
+                        quizzes.
+                    </p>
+                    <input
+                        type="file"
+                        accept="application/pdf"
+                        id="pdf-upload"
+                        style={{ display: 'none' }}
+                        onChange={handleFileUpload}
+                    />
+                    <button
+                        onClick={() => document.getElementById('pdf-upload').click()}
+                        className="upload-button"
+                        disabled={uploading}
+                    >
+                        {uploading ? "Uploading..." : "Upload PDF"}
+                    </button>
+                    {uploadError && <div className="upload-error">{uploadError}</div>}
                 </div>
-            </Navbar>
-            <div className="title">
-                <h1 className="l">
-                    Cheat <span>Sheet</span>
-                </h1>
-                <p className="o">
-                    Your Ultimate Study Companion for College Success
-                    <br />
-                    Simply upload a chapter PDF, and we’ll generate a detailed cheat sheet tailored to your needs.
-                    Along with that, you’ll receive a personalized mock test to help you excel in your upcoming college
-                    quizzes.
-                </p>
-                <input
-                    type="file"
-                    accept="application/pdf"
-                    id="pdf-upload"
-                    style={{ display: 'none' }}
-                    onChange={handleFileUpload}
-                />
-                <button
-                    onClick={() => document.getElementById('pdf-upload').click()}
-                    className="upload-button"
-                    disabled={uploading}
-                >
-                    {uploading ? "Uploading..." : "Upload PDF"}
-                </button>
-                {uploadError && <div className="upload-error">{uploadError}</div>}
+                <section className="features">
+                    <h2 className="section-title">Why Choose Our Cheat Sheet Generator?</h2>
+                    <div className="feature-grid">
+                        <div className="feature-card">
+                            <FaRocket className="feature-icon" />
+                            <h3>Boost Your Productivity</h3>
+                            <p>Save hours of manual note-taking and focus on what matters most - understanding the content.</p>
+                        </div>
+                        <div className="feature-card">
+                            <FaLightbulb className="feature-icon" />
+                            <h3>Tailored to Your Needs</h3>
+                            <p>Our AI-powered system creates personalized cheat sheets that highlight key concepts and definitions.</p>
+                        </div>
+                        <div className="feature-card">
+                            <FaClock className="feature-icon" />
+                            <h3>Quick Turnaround</h3>
+                            <p>Get your cheat sheet and mock test within minutes, not hours.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <section className="features">
-          <h2 className="section-title">Why Choose Our Cheat Sheet Generator?</h2>
-          <div className="feature-grid">
-            <div className="feature-card">
-              <FaRocket className="feature-icon" />
-              <h3>Boost Your Productivity</h3>
-              <p>Save hours of manual note-taking and focus on what matters most - understanding the content.</p>
-            </div>
-            <div className="feature-card">
-              <FaLightbulb className="feature-icon" />
-              <h3>Tailored to Your Needs</h3>
-              <p>Our AI-powered system creates personalized cheat sheets that highlight key concepts and definitions.</p>
-            </div>
-            <div className="feature-card">
-              <FaClock className="feature-icon" />
-              <h3>Quick Turnaround</h3>
-              <p>Get your cheat sheet and mock test within minutes, not hours.</p>
-            </div>
-          </div>
-        </section>
+            {loading && (
+                <div className="loader-overlay">
+                    <div className="loader-container">
+                        <div className="flame-loader">
+                            <div className="flame"></div>
+                            <div className="flame"></div>
+                            <div className="flame"></div>
+                            <div className="flame"></div>
+                            <div className="flame"></div>
+                        </div>
+                        <p className="loader-text">Processing the pdf, please wait...</p>
+                    </div>
+                </div>
+            )}
         </div>
-        
     );
 };
 

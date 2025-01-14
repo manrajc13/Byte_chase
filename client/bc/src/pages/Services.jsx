@@ -16,21 +16,24 @@ const services = [
     title: "Cheat Sheet Generation",
     description: "Create customized cheat sheets for quick reference and efficient learning.",
     features: [
-      "AI-powered content summarization",
-      "Customizable templates",
-      "Export to PDF, PNG, or interactive web format",
-      "Collaborative editing for team study sessions"
+      
+
+      "Summarized key concepts",
+      "Quick reference format",
+      "Concise, topic-specific sections",
+      "Download as pdf"
     ]
   },
   {
     icon: <HelpCircle size={48} />,
-    title: "Quiz Taking",
-    description: "Test your knowledge with our interactive quizzes on various subjects.",
+    title: "Test Yourself",
+    description: "Challenge your knowledge and become a better learner with an engaging quiz.",
     features: [
-      "Adaptive difficulty based on performance",
-      "Real-time feedback and explanations",
-      "Progress tracking and analytics",
-      "Competitive leaderboards and achievements"
+      
+      "Focused practice questions",
+      "Adaptive difficulty levels",
+      "Detailed solution feedback",
+      " Time-bound assessments"
     ]
   },
   {
@@ -38,9 +41,10 @@ const services = [
     title: "Personalized Learning",
     description: "Adaptive learning paths tailored to your individual needs and progress.",
     features: [
-      "AI-driven study recommendations",
-      "Spaced repetition for optimal retention",
-      "Cross-subject connection mapping",
+     
+      "Tailored study plans",
+      "Dynamic progress tracking",
+      "Roadmaps based on test insights",
       "Learning style assessment and adaptation"
     ]
   },
@@ -49,10 +53,13 @@ const services = [
     title: "Study Resources",
     description: "Access a wide range of study materials to supplement your learning journey.",
     features: [
-      "Curated video tutorials and lectures",
-      "Interactive simulations and experiments",
-      "Peer-reviewed article database",
-      "Expert Q&A forums"
+     
+
+
+      "Handpicked, relevant materials",
+      "Top-rated videos and guides",
+      "Focused articles and notes",
+      "Streamlined for efficient learning"
     ]
   }
 ];
