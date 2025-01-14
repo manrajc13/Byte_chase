@@ -47,7 +47,7 @@ const Home = () => {
             alert(`File uploaded successfully! View it here: ${data.fileUrl}`);
 
             const backendResponse = await axios.post(
-                'https://7ef5-35-243-179-19.ngrok-free.app/',
+                'https://3b9b-34-58-14-92.ngrok-free.app/',
                 { fileurl: data.fileUrl }
             );
 
